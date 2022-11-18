@@ -3,18 +3,17 @@
 #Hexabitz Modules with Raspberry Pi Pico Test
 from machine import UART, Pin
 import time
-uart = UART(0, baudrate= 921600, tx=Pin(0), rx=Pin(1))                         # init with given baudrate
-uart.init(921600, bits=8, parity=None, stop=1) # init with given parameters
-print('-- UART Serial --')
+uart = UART(0, baudrate= 921600, tx=Pin(0), rx=Pin(1))  # init with given baudrate
+uart.init(921600, bits=8, parity=None, stop=1)          # init with given parameters
+print('-- UART Serial Test --')
 print('>', end='')
 txData = b'\r'
-uart.write(txData)
-time.sleep(4)
-rxData = bytes()
-time.sleep(4)
+uart.write(txData.decode('utf-8'))
+time.sleep(1)
 txData = b'on 90 \r'
 uart.write(txData.decode('utf-8'))
-time.sleep(4)
+time.sleep(1)
+rxData = bytes()
 while uart.any() > 0:
     rxData = uart.readline()
     print(rxData)
